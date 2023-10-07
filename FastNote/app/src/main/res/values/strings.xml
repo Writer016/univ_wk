@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">FastNote</string>
+    <string name="open">FastNote</string>
+    <string name="close">FastNote</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">title</string>
+    <string name="note">note</string>
+    <string name="warn">can\'t create file</string>
+    <string name="readWarn">can\'t read file</string>
+    <string name="saveWarn">File will be not saved</string>
+    <string name="drawer_quotes">Quotes</string>
+    <string name="drawer_normal">Notes</string>
+    <string name="drawer_Profile">Profile</string>
+    <string name="profile_name">Name</string>
+    <string name="profile_blog">Blog</string>
+    <string name="profile_email">E-mail</string>
+    <string name="profile_info">Information</string>
+    <string name="profile_dot">…</string>
+    <string name="newNote">newNote</string>
+    <string name="menu_change1">Default Image</string>
+    <string name="menu_change2">Custom Image</string>
+    <string name="dateFormat">"yyyy/MM/dd hh:mm"</string>
+</resources>
