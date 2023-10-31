@@ -12,7 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.example.fastnote.R
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() { //메인액티비티 -- 홈 화면 제어
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
     lateinit var context: Context
@@ -41,22 +41,23 @@ class MainActivity : AppCompatActivity() {
             commit()
         }
 
+        //드로어 제어
         navigationView = findViewById(R.id.NavigationView)
         navigationView.setNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.item1 ->{
+                R.id.item1 ->{ //드로어 첫번째 메뉴 item 선택 시..
                     fragArgs = 1
                     supportActionBar?.title="Notes"
                     supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.frameLayout, normalFragment)
+                        replace(R.id.frameLayout, normalFragment) //페이지 1로 전환
                         commit()
                     }
                     drawerLayout.closeDrawer(GravityCompat.START)}
-                R.id.item2 ->{
+                R.id.item2 ->{ //드로어 두번째 메뉴 item 선택 시..
                     fragArgs = 2
                     supportActionBar?.title="Profiles"
                     supportFragmentManager.beginTransaction().apply {
-                        replace(R.id.frameLayout, profileFragment)
+                        replace(R.id.frameLayout, profileFragment) //페이지 2로 전환
                         commit()
                     }
                     drawerLayout.closeDrawer(GravityCompat.START)}
@@ -65,13 +66,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //새 메모 버튼 클릭 시..
     fun createNew(view: View){
         when(fragArgs){
-            1->{
+            1->{ //일반 메모
                 val intent = Intent(context, WriteActivityNormal::class.java)
                 startActivity(intent)
             }
-            2->{
+            2->{ //프로필 메모
                 val intent = Intent(context, WriteActivityProfile::class.java)
                 startActivity(intent)
             }

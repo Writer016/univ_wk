@@ -24,7 +24,7 @@ import java.io.File
 import java.io.FileReader
 import java.io.FileWriter
 
-class WriteActivityProfile : AppCompatActivity() {
+class WriteActivityProfile : AppCompatActivity() { //프로필 메모 작성 페이지
     private lateinit var fileNameView: EditText
     private lateinit var fileBlogView: EditText
     private lateinit var fileEmailView: EditText
@@ -73,33 +73,38 @@ class WriteActivityProfile : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_save)
 
-        pathData = intent.getStringExtra("pathData").toString()
-        if(pathData!="null"){
+        pathData = intent.getStringExtra("pathData").toString() //pathData는 '새 파일 생성'인지 '파일 수정'인지 경로를 알려준다.
+        if(pathData!="null"){ //pathData가 존재 = 파일 수정 경로
+            //pathData가 존재하지 않으면 새 파일 생성 경로이므로, 이 if문은 실행 안됨.
+            //이 if문의 존재 이유는 메모 수정 시 저장된 내용 불러오기를 위함.
             try {
+                //${filesDir}/${pathData}: 클릭한 메모 파일의 경로
                 val bufferedReader = BufferedReader(FileReader("${filesDir}/${pathData}"))
+                //FileReader(Path): 클릭한 메모 파일의 경로로부터 문자 기반 텍스트 파일 읽어옴. 파일이 존재하지 않으면 FileNotFoundException 발생
+
                 var str: String?
-                val builder = StringBuilder()
-                val builderToCpr: StringBuilder = StringBuilder()
+                val builder = StringBuilder() //메모 내용 위한 StringBuilder
+                val builderToCpr: StringBuilder = StringBuilder() //내용을 포함한 파일의 전체 텍스트(이미지 경로, 블로그, 이메일)를 위한 StringBuilder
                 var i = 0
 
                 while (true) {
-                    str = bufferedReader.readLine()
-                    if (str == null) { break }
+                    str = bufferedReader.readLine() //한 줄씩 읽기
+                    if (str == null) { break } //더 이상의 개행이 없으면 반복문 나오기
                     when (i) {
-                        0 -> { imagePathData = str}
-                        1 -> { fileBlogView.setText(str) }
-                        2 -> { fileEmailView.setText(str) }
-                        else -> { builder.append(str).append("\n") } }
-                    builderToCpr.append(str).append("\n")
+                        0 -> { imagePathData = str} //첫번째 줄은 이미지 경로.
+                        1 -> { fileBlogView.setText(str) } //두번째 줄은 블로그.
+                        2 -> { fileEmailView.setText(str) } //세번째 줄은 이메일.
+                        else -> { builder.append(str).append("\n") } } //다음 줄 부터는 모두 메모 내용.
+                    builderToCpr.append(str).append("\n") //첫번째 줄부터 끝까지 전체 텍스트
                     i++
                 }
-                bufferedReader.close()
+                bufferedReader.close() //bufferedReader 닫기
 
-                currentFileInfo = builder.toString()
-                fileAllText = builderToCpr.toString()
+                currentFileInfo = builder.toString() //스트링빌더로 이어붙인 메모 내용
+                fileAllText = builderToCpr.toString() //스트링빌더로 이어붙인 전체 내용
 
-                fileNameView.setText("${pathData.subSequence(0, pathData.length - 5)}")
-                fileInfoView.setText(currentFileInfo)
+                fileNameView.setText("${pathData.subSequence(0, pathData.length - 5)}") //타이틀 텍스트뷰로 가져오기. 단, 뒤쪽 "p.txt"는 제외시킴.
+                fileInfoView.setText(currentFileInfo) //불러온 파일 텍스트를 텍스트뷰로 가져오기
             }
             catch(t: Throwable){
                 Toast.makeText(
@@ -116,6 +121,7 @@ class WriteActivityProfile : AppCompatActivity() {
         return true
     }
 
+    //<< 파일 저장 >>
     private fun saveFile(fileTitle: String){
         try {
             val bufferedWriter = BufferedWriter(FileWriter("${filesDir}/${fileTitle}p.txt"))
@@ -130,22 +136,26 @@ class WriteActivityProfile : AppCompatActivity() {
         }
     }
 
+    //<< 파일 이름 생성 >>
     private fun generateName(title: String): String{
         var newTitle = title
         var index = 1
-        if(File(filesDir, "${title}p.txt").exists()) {
+
+        //'title'+'p.txt' 이름의 파일 존재 여부 확인
+        if(File(filesDir, "${title}p.txt").exists()) { //똑같은 이름의 파일이 존재하면,
             while(true){
-                if(File(filesDir, "${title}-${index}p.txt").exists()){
-                    index++
-                }else{
-                    newTitle = "${title}-${index}"
-                    break
+                if(File(filesDir, "${title}-${index}p.txt").exists()){ //title-1부터 오름차순으로 title-2, title-3 ... 이름 존재하는지 확인. 방금 확인한 파일 이름이 존재하면,
+                    index++ //title-n의 숫자 'n'에 1 더하기
+                }else{ //방금 확인한 파일 이름이 존재하지 않으면,
+                    newTitle = "${title}-${index}" //방금 확인한 파일 이름 title-n으로 최종 타이틀 확정
+                    break //반복문 빠져나오기
                 }
             }
         }
-        return newTitle
+        return newTitle //최종 타이틀 반환.
     }
 
+    //<< 파일 이름 생성 & 파일 저장 >>
     private fun saveAndFinish(){
         lifecycleScope.launch {
             if(fileNameView.text.toString().trim()=="") fileNameView.setText(R.string.newNote)
