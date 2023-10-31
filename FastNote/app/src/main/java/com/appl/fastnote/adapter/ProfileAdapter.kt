@@ -82,9 +82,12 @@ class ProfileAdapter(private var fileList: ArrayList<File>, private val context:
     }
 
     fun saveChanges() {
+        //<< 메모 리스트 가져오기 LOGIC >>
         var fileArr = context.filesDir.listFiles {file->
             file.name.endsWith("p.txt")
-        }
+        } //가져온 메모 리스트를 fileArr로 초기화
+
+        //<< 가져온 리스트 정렬 LOGIC >>
         fileArr = if(fileArr==null){
             arrayOf()
         } else{

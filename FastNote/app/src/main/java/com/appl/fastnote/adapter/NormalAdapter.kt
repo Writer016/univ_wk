@@ -63,9 +63,12 @@ class NormalAdapter(private var fileList: ArrayList<File>, val context: Context)
     }
 
     fun saveChanges() {
+        //<< 메모 리스트 가져오기 LOGIC >>
         var fileArr = context.filesDir.listFiles {file->
             file.name.endsWith("n.txt")
-        }
+        } //가져온 메모 리스트를 fileArr로 초기화
+
+        //<< 가져온 리스트 정렬 LOGIC >>
         fileArr = if(fileArr==null){
             arrayOf()
         } else{

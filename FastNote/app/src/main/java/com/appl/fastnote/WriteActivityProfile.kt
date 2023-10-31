@@ -73,6 +73,7 @@ class WriteActivityProfile : AppCompatActivity() { //프로필 메모 작성 페
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_save)
 
+        //<< 메모 불러오기 LOGIC >>
         pathData = intent.getStringExtra("pathData").toString() //pathData는 '새 파일 생성'인지 '파일 수정'인지 경로를 알려준다.
         if(pathData!="null"){ //pathData가 존재 = 파일 수정 경로
             //pathData가 존재하지 않으면 새 파일 생성 경로이므로, 이 if문은 실행 안됨.
@@ -121,7 +122,7 @@ class WriteActivityProfile : AppCompatActivity() { //프로필 메모 작성 페
         return true
     }
 
-    //<< 파일 저장 >>
+    //<< 파일 저장 LOGIC >>
     private fun saveFile(fileTitle: String){
         try {
             val bufferedWriter = BufferedWriter(FileWriter("${filesDir}/${fileTitle}p.txt"))
@@ -136,7 +137,7 @@ class WriteActivityProfile : AppCompatActivity() { //프로필 메모 작성 페
         }
     }
 
-    //<< 파일 이름 생성 >>
+    //<< 파일 이름 생성 LOGIC >>
     private fun generateName(title: String): String{
         var newTitle = title
         var index = 1
@@ -155,7 +156,7 @@ class WriteActivityProfile : AppCompatActivity() { //프로필 메모 작성 페
         return newTitle //최종 타이틀 반환.
     }
 
-    //<< 파일 이름 생성 & 파일 저장 >>
+    //<< 파일 이름 생성 & 파일 저장 LOGIC >>
     private fun saveAndFinish(){
         lifecycleScope.launch {
             if(fileNameView.text.toString().trim()=="") fileNameView.setText(R.string.newNote)
@@ -184,8 +185,8 @@ class WriteActivityProfile : AppCompatActivity() { //프로필 메모 작성 페
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         fileText = "${imagePathData}\n${fileBlogView.text}\n${fileEmailView.text}\n${fileInfoView.text}"
         when(item.itemId){
-            android.R.id.home->{
-                saveAndFinish()
+            android.R.id.home->{ //왼쪽 상단의 저장 버튼이 클릭되면..
+                saveAndFinish() // <<파일 이름 생성>> 및 <<파일 저장>> LOGIC 실행
             }
             R.id.profileMenu_item1 ->{ //default image
                 imagePathData="def"
