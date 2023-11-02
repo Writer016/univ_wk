@@ -1,4 +1,4 @@
-## FastNote
+## 폴더 FastNote
 
 ### 소스코드 경로
 FastNote/app/src/main/java/com/appl/fastnote
@@ -18,9 +18,9 @@ FastNote/app/src/main/java/com/appl/fastnote
 1) << 파일 저장 LOGIC >>과 << 파일 이름 생성 LOGIC >>은 클래스 WriteActivityNormal과 WriteActivityProfile에서 사용됨.
 2) << 파일 저장 LOGIC >>과 << 파일 이름 생성 LOGIC >>모두 Normal과 Profile끼리 로직이 다름.
 
-## FastNote_ref_1
+## 폴더 FastNote_ref_1
 
-### FileReader
+### FileReader.kt
 리팩토링 위치-1에 대한 리팩토링 초안.
-### Saver
+### Saver.kt
 리팩토링 위치-2에 대한 리팩토링 초안.
