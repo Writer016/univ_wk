@@ -27,4 +27,11 @@ FastNote/app/src/main/java/com/appl/fastnote
 
 ## 폴더 FastNote_Refactored
 ### /loc1
-위치-1에 대한 리팩토링 코드
+위치-1에 대한 리팩토링 코드. << 메모 리스트 가져오기 LOGIC >>, << 가져온 리스트 정렬 LOGIC >>을 상위 클래스인 FileReader에서 구현함.
+로직에 포함되는 파일 형식("n.txt"를 비롯한)은 하위 클래스인 NormalFileReader와 ProfileFileReader로 확장 구현.
+
+#### 리팩토링 전 클라이언트 코드 -- NormalFragment
+![image](https://github.com/Writer016/univ_wk/assets/129999079/6ea6913d-0b18-4817-9b05-4ef5a9a017b7)
+
+#### 리팩토링 후 클라이언트 코드 -- NormalFragment
+![image](https://github.com/Writer016/univ_wk/assets/129999079/da53efe9-5614-493b-9535-552ccd8e90c9)
