@@ -24,3 +24,7 @@ FastNote/app/src/main/java/com/appl/fastnote
 리팩토링 위치-1에 대한 리팩토링 초안.
 ### Saver.kt
 리팩토링 위치-2에 대한 리팩토링 초안.
+
+## 폴더 FastNote_Refactored
+### /loc1
+위치-1에 대한 리팩토링 코드
