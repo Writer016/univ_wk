@@ -8,10 +8,6 @@ import java.io.File
 import java.io.FileWriter
 
 class NormalSaver(private val context: Context): Saver { //구현부 하위 클래스
-    override fun newName(fileTitle: String): String{
-        return if(fileTitle.trim()=="") "newNote"
-        else fileTitle
-    }
     override fun saveNote(path: String, fileTitle: String, fileInfo: String, currentInfo: String){
         if (path == "null") {
             saveFile(generateFileName(fileTitle), fileInfo)

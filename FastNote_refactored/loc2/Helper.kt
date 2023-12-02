@@ -4,7 +4,7 @@ abstract class Helper(private val saver: Saver) { //기능부 최상위 클래�
     fun saveNote(path: String, fileTitle: String, fileInfo: String, currentInfo: String){
         saver.saveNote(path, fileTitle, fileInfo, currentInfo)
     }
-    fun newName(fileTitle: String): String{
-        return saver.newName(fileTitle)
+    fun ifNameEmpty(fileTitle: String): String{
+        return saver.ifNameEmpty(fileTitle)
     }
 }
